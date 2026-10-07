@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+outputs/*.png
+outputs/*.joblib
+outputs/*.csv
+outputs/*.txt

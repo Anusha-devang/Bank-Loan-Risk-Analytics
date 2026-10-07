@@ -1,0 +1,189 @@
+
+BANK LOAN APPROVAL & RISK ANALYTICS
+Started at 2026-07-28 00:10:57
+
+####################################################################
+# STEP 1: DATA INGESTION & FEATURE ENGINEERING
+####################################################################
+[data_loader] Loaded 20 rows x 15 columns from loan_applications.csv
+[data_loader] Validation -> {'rows': 20, 'duplicate_ids': 0, 'missing_values': 0, 'negative_income': 0}
+[data_loader] Engineered 5 new features
+
+####################################################################
+# STEP 2: RULE-BASED RISK SCORING
+####################################################################
+[risk_engine] Scored 20 applications -> {'LOW': 9, 'HIGH': 8, 'MEDIUM': 3}
+application_id  credit_score  dti_ratio  risk_score risk_band rule_decision loan_approved
+        LN1001           780      0.330          16       LOW  AUTO-APPROVE             Y
+        LN1002           720      0.313          18       LOW  AUTO-APPROVE             Y
+        LN1003           610      0.705          88      HIGH   AUTO-REJECT             N
+        LN1004           690      0.325          28    MEDIUM MANUAL REVIEW             Y
+        LN1005           800      0.361          21       LOW  AUTO-APPROVE             Y
+        LN1006           580      0.671         100      HIGH   AUTO-REJECT             N
+        LN1007           745      0.344          18       LOW  AUTO-APPROVE             Y
+        LN1008           640      0.740          94      HIGH   AUTO-REJECT             N
+        LN1009           810      0.347          10       LOW  AUTO-APPROVE             Y
+        LN1010           520      1.053         100      HIGH   AUTO-REJECT             N
+        LN1011           700      0.507          43    MEDIUM MANUAL REVIEW             Y
+        LN1012           665      0.546          76      HIGH   AUTO-REJECT             N
+        LN1013           705      0.398          18       LOW  AUTO-APPROVE             Y
+        LN1014           760      0.334          10       LOW  AUTO-APPROVE             Y
+        LN1015           560      1.056         100      HIGH   AUTO-REJECT             N
+        LN1016           730      0.298           8       LOW  AUTO-APPROVE             Y
+        LN1017           690      0.424          63      HIGH   AUTO-REJECT             N
+        LN1018           600      0.552          83      HIGH   AUTO-REJECT             N
+        LN1019           785      0.305          10       LOW  AUTO-APPROVE             Y
+        LN1020           655      0.376          33    MEDIUM MANUAL REVIEW             Y
+
+####################################################################
+# STEP 3: EXPLORATORY DATA ANALYSIS
+####################################################################
+
+====================================================================
+EXPLORATORY DATA ANALYSIS
+====================================================================
+Records            : 20
+Columns            : 24
+Approved / Rejected: 12 / 8
+Approval rate      : 60.0%
+
+-- Averages by approval status --
+               credit_score  annual_income  dti_ratio  loan_to_income  previous_defaults
+loan_approved                                                                           
+N                    608.12      742500.00       0.72            2.37               1.25
+Y                    740.00      978333.33       0.35            1.23               0.00
+
+-- Approval rate by employment type --
+  Salaried        83%
+  Self-Employed   29%
+  Unemployed      0%
+
+-- Correlation of numeric drivers with approval --
+credit_score         0.798
+annual_income        0.239
+loan_to_income      -0.764
+dti_ratio           -0.782
+previous_defaults   -0.913
+risk_score          -0.949
+[eda] saved 01_approval_distribution.png
+[eda] saved 02_credit_score_boxplot.png
+[eda] saved 03_income_vs_loan.png
+[eda] saved 04_risk_bands.png
+
+####################################################################
+# STEP 4: MODEL TRAINING & EVALUATION
+####################################################################
+
+====================================================================
+MODEL TRAINING
+====================================================================
+Train rows : 14   Test rows : 6
+Accuracy   : 0.833
+ROC-AUC    : 1.0
+Confusion matrix [[TN FP] [FN TP]]:
+[[1 1]
+ [0 4]]
+
+Classification report:
+              precision    recall  f1-score   support
+
+    Rejected       1.00      0.50      0.67         2
+    Approved       0.80      1.00      0.89         4
+
+    accuracy                           0.83         6
+   macro avg       0.90      0.75      0.78         6
+weighted avg       0.87      0.83      0.81         6
+
+[model] pipeline saved to loan_model.joblib
+
+Top model drivers (positive = pushes towards approval):
+               feature  coefficient
+     num__credit_score        0.678
+num__previous_defaults       -0.665
+   num__loan_to_income       -0.532
+        num__dti_ratio       -0.512
+   num__monthly_income        0.382
+    num__annual_income        0.382
+     num__existing_emi       -0.290
+      cat__gender_Male        0.223
+
+####################################################################
+# STEP 5: REAL-TIME APPLICATION STREAM
+####################################################################
+[data_loader] Loaded 8 rows x 14 columns from incoming_stream.csv
+[data_loader] Validation -> {'rows': 8, 'duplicate_ids': 0, 'missing_values': 0, 'negative_income': 0}
+[data_loader] Engineered 5 new features
+
+====================================================================
+REAL-TIME DECISION STREAM
+====================================================================
+
+[00:10:58] LN2001 | Harish Bhat
+    income Rs.1,150,000/yr | loan Rs.1,500,000 | CIBIL 770 | DTI 28%
+    risk 0/100 (LOW) | model P(approve)=0.97
+    DECISION: APPROVED  <- low risk + model agrees
+    reasons : no risk flags
+    LIVE KPI: processed=1 approval=100% avg-risk=0.0 high-risk=0 exposure=Rs.1,500,000
+
+[00:10:58] LN2002 | Kavya Raman
+    income Rs.390,000/yr | loan Rs.800,000 | CIBIL 610 | DTI 65%
+    risk 83/100 (HIGH) | model P(approve)=0.12
+    DECISION: REJECTED  <- rule veto: high risk band
+    reasons : credit score 610 (+30); DTI 65% (+35); loan is 2.1x income (+6); 1 previous default(s) (+12)
+    LIVE KPI: processed=2 approval=50% avg-risk=41.5 high-risk=1 exposure=Rs.1,500,000
+
+[00:10:58] LN2003 | Imran Sheikh
+    income Rs.1,750,000/yr | loan Rs.2,600,000 | CIBIL 735 | DTI 31%
+    risk 23/100 (LOW) | model P(approve)=0.94
+    DECISION: APPROVED  <- low risk + model agrees
+    reasons : credit score 735 (+8); DTI 31% (+10); self-employed income (+5)
+    LIVE KPI: processed=3 approval=67% avg-risk=35.3 high-risk=1 exposure=Rs.4,100,000
+
+[00:10:58] LN2004 | Divya Kulkarni
+    income Rs.700,000/yr | loan Rs.1,400,000 | CIBIL 655 | DTI 58%
+    risk 71/100 (HIGH) | model P(approve)=0.18
+    DECISION: REJECTED  <- rule veto: high risk band
+    reasons : credit score 655 (+18); DTI 58% (+35); loan is 2.0x income (+6); 1 previous default(s) (+12)
+    LIVE KPI: processed=4 approval=50% avg-risk=44.2 high-risk=2 exposure=Rs.4,100,000
+
+[00:10:58] LN2005 | Naveen Prasad
+    income Rs.300,000/yr | loan Rs.1,200,000 | CIBIL 540 | DTI 133%
+    risk 100/100 (HIGH) | model P(approve)=0.00
+    DECISION: REJECTED  <- rule veto: high risk band
+    reasons : credit score 540 (+45); DTI 133% (+35); loan is 4.0x income (+20); 2 previous default(s) (+24); self-employed income (+5)
+    LIVE KPI: processed=5 approval=40% avg-risk=55.4 high-risk=3 exposure=Rs.4,100,000
+
+[00:10:58] LN2006 | Ayesha Fernandes
+    income Rs.980,000/yr | loan Rs.900,000 | CIBIL 795 | DTI 27%
+    risk 0/100 (LOW) | model P(approve)=0.96
+    DECISION: APPROVED  <- low risk + model agrees
+    reasons : no risk flags
+    LIVE KPI: processed=6 approval=50% avg-risk=46.2 high-risk=3 exposure=Rs.5,000,000
+
+[00:10:58] LN2007 | Rohit Chauhan
+    income Rs.820,000/yr | loan Rs.2,000,000 | CIBIL 625 | DTI 64%
+    risk 88/100 (HIGH) | model P(approve)=0.07
+    DECISION: REJECTED  <- rule veto: high risk band
+    reasons : credit score 625 (+30); DTI 64% (+35); loan is 2.4x income (+6); 1 previous default(s) (+12); self-employed income (+5)
+    LIVE KPI: processed=7 approval=43% avg-risk=52.1 high-risk=4 exposure=Rs.5,000,000
+
+[00:10:58] LN2008 | Swathi Naidu
+    income Rs.560,000/yr | loan Rs.500,000 | CIBIL 715 | DTI 32%
+    risk 18/100 (LOW) | model P(approve)=0.89
+    DECISION: APPROVED  <- low risk + model agrees
+    reasons : credit score 715 (+8); DTI 32% (+10)
+    LIVE KPI: processed=8 approval=50% avg-risk=47.9 high-risk=4 exposure=Rs.5,500,000
+
+[stream] decision log written to realtime_decisions.csv
+
+--- SESSION SUMMARY ---
+Applications processed : 8
+Approval rate          : 50.0%
+Average risk score     : 47.9/100
+High-risk applications : 4
+Sanctioned exposure    : Rs.5,500,000
+
+[main] summary report written to summary_report.txt
+
+Pipeline finished successfully.
+

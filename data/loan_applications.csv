@@ -1,0 +1,21 @@
+application_id,applicant_name,age,gender,marital_status,employment_type,annual_income,credit_score,existing_emi,loan_amount,loan_term_months,loan_purpose,property_area,previous_defaults,loan_approved
+LN1001,Arjun Mehta,32,Male,Married,Salaried,1200000,780,8000,2500000,240,Home,Urban,0,Y
+LN1002,Priya Sharma,28,Female,Single,Salaried,850000,720,5000,800000,60,Personal,Urban,0,Y
+LN1003,Rahul Verma,45,Male,Married,Self-Employed,600000,610,15000,1500000,120,Business,Semiurban,1,N
+LN1004,Sneha Iyer,26,Female,Single,Salaried,480000,690,0,400000,36,Education,Urban,0,Y
+LN1005,Vikram Nair,38,Male,Married,Self-Employed,1500000,800,12000,3000000,180,Home,Urban,0,Y
+LN1006,Deepa Rao,41,Female,Divorced,Salaried,720000,580,20000,1200000,84,Personal,Rural,2,N
+LN1007,Karthik Reddy,30,Male,Single,Salaried,960000,745,6000,1000000,60,Vehicle,Urban,0,Y
+LN1008,Anjali Gupta,35,Female,Married,Self-Employed,540000,640,9000,1800000,120,Business,Semiurban,1,N
+LN1009,Manish Patel,50,Male,Married,Salaried,1800000,810,25000,2000000,120,Home,Urban,0,Y
+LN1010,Ritu Singh,29,Female,Single,Unemployed,180000,520,3000,500000,48,Personal,Rural,1,N
+LN1011,Suresh Kumar,47,Male,Married,Salaried,660000,700,11000,900000,72,Education,Semiurban,0,Y
+LN1012,Fatima Khan,33,Female,Married,Self-Employed,900000,665,14000,2200000,144,Home,Urban,1,N
+LN1013,Aditya Joshi,24,Male,Single,Salaried,420000,705,0,300000,24,Vehicle,Urban,0,Y
+LN1014,Meera Pillai,39,Female,Married,Salaried,1100000,760,9000,1600000,120,Home,Semiurban,0,Y
+LN1015,Rakesh Yadav,52,Male,Married,Self-Employed,380000,560,18000,1000000,96,Business,Rural,2,N
+LN1016,Nisha Agarwal,31,Female,Single,Salaried,780000,730,4000,600000,48,Personal,Urban,0,Y
+LN1017,Gaurav Malhotra,44,Male,Married,Self-Employed,2100000,690,30000,4000000,180,Business,Urban,1,N
+LN1018,Pooja Desai,27,Female,Single,Salaried,520000,600,7000,900000,72,Education,Semiurban,1,N
+LN1019,Sandeep Rana,36,Male,Married,Salaried,1350000,785,10000,1800000,120,Home,Urban,0,Y
+LN1020,Lakshmi Menon,43,Female,Widowed,Self-Employed,640000,655,5000,700000,60,Personal,Rural,0,Y

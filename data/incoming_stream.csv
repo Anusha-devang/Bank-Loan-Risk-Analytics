@@ -1,0 +1,9 @@
+application_id,applicant_name,age,gender,marital_status,employment_type,annual_income,credit_score,existing_emi,loan_amount,loan_term_months,loan_purpose,property_area,previous_defaults
+LN2001,Harish Bhat,34,Male,Married,Salaried,1150000,770,7000,1500000,120,Home,Urban,0
+LN2002,Kavya Raman,25,Female,Single,Salaried,390000,610,4000,800000,60,Personal,Rural,1
+LN2003,Imran Sheikh,48,Male,Married,Self-Employed,1750000,735,16000,2600000,180,Business,Urban,0
+LN2004,Divya Kulkarni,30,Female,Married,Salaried,700000,655,12000,1400000,96,Vehicle,Semiurban,1
+LN2005,Naveen Prasad,55,Male,Married,Self-Employed,300000,540,17000,1200000,120,Business,Rural,2
+LN2006,Ayesha Fernandes,29,Female,Single,Salaried,980000,795,3000,900000,60,Education,Urban,0
+LN2007,Rohit Chauhan,41,Male,Divorced,Self-Employed,820000,625,19000,2000000,144,Home,Semiurban,1
+LN2008,Swathi Naidu,27,Female,Single,Salaried,560000,715,2000,500000,48,Personal,Urban,0

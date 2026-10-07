@@ -1,0 +1,33 @@
+BANK LOAN APPROVAL & RISK ANALYTICS - RUN SUMMARY
+Generated : 2026-07-28 00:10:58
+
+1. DATASET
+   Historical records : 20
+   Approval rate      : 60.0%
+   Risk band split    : {'LOW': 9, 'HIGH': 8, 'MEDIUM': 3}
+
+2. MODEL
+   Train / test rows  : 14 / 6
+   Accuracy           : 0.833
+   ROC-AUC            : 1.0
+   Confusion matrix   : [[1, 1], [0, 4]]
+
+   Top drivers:
+     num__credit_score                           0.678
+     num__previous_defaults                     -0.665
+     num__loan_to_income                        -0.532
+     num__dti_ratio                             -0.512
+     num__monthly_income                         0.382
+     num__annual_income                          0.382
+     num__existing_emi                           -0.29
+     cat__gender_Male                            0.223
+
+3. REAL-TIME STREAM
+   Applications processed : 8
+   Approval rate          : 50.0%
+   Average risk score     : 47.9/100
+   High-risk applications : 4
+   Sanctioned exposure    : Rs.5,500,000
+
+Artefacts written to outputs/: charts (*.png), loan_model.joblib,
+realtime_decisions.csv, summary_report.txt

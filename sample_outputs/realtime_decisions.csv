@@ -1,0 +1,9 @@
+timestamp,application_id,applicant_name,credit_score,dti_ratio,risk_score,risk_band,model_probability,final_decision,justification,risk_reasons
+00:10:58,LN2001,Harish Bhat,770,0.284,0,LOW,0.968,APPROVED,low risk + model agrees,no risk flags
+00:10:58,LN2002,Kavya Raman,610,0.652,83,HIGH,0.117,REJECTED,rule veto: high risk band,credit score 610 (+30); DTI 65% (+35); loan is 2.1x income (+6); 1 previous default(s) (+12)
+00:10:58,LN2003,Imran Sheikh,735,0.307,23,LOW,0.938,APPROVED,low risk + model agrees,credit score 735 (+8); DTI 31% (+10); self-employed income (+5)
+00:10:58,LN2004,Divya Kulkarni,655,0.576,71,HIGH,0.175,REJECTED,rule veto: high risk band,credit score 655 (+18); DTI 58% (+35); loan is 2.0x income (+6); 1 previous default(s) (+12)
+00:10:58,LN2005,Naveen Prasad,540,1.328,100,HIGH,0.0,REJECTED,rule veto: high risk band,credit score 540 (+45); DTI 133% (+35); loan is 4.0x income (+20); 2 previous default(s) (+24); self-employed income (+5)
+00:10:58,LN2006,Ayesha Fernandes,795,0.274,0,LOW,0.962,APPROVED,low risk + model agrees,no risk flags
+00:10:58,LN2007,Rohit Chauhan,625,0.636,88,HIGH,0.071,REJECTED,rule veto: high risk band,credit score 625 (+30); DTI 64% (+35); loan is 2.4x income (+6); 1 previous default(s) (+12); self-employed income (+5)
+00:10:58,LN2008,Swathi Naidu,715,0.317,18,LOW,0.895,APPROVED,low risk + model agrees,credit score 715 (+8); DTI 32% (+10)
